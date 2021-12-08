@@ -1,5 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Repository } from 'typeorm';
 import { CreateHedgehogDto } from './dto/create-hedgehog.dto';
 import { UpdateHedgehogDto } from './dto/update-hedgehog.dto';
@@ -17,10 +18,14 @@ export class HedgehogsService {
     }
   }
 
-  findAll() {
+  findAll(paginationQuery: PaginationQueryDto) {
+    const { limit, offset } = paginationQuery;
     let hedgehogs;
     try {
-      hedgehogs = this.hedgehogRepository.find();
+      hedgehogs = this.hedgehogRepository.find({
+        skip: offset,
+        take: limit,
+      });
     } catch (err) {
       throw new InternalServerErrorException('Oops, something went wrong');
     }

@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { HedgehogsService } from './hedgehogs.service';
 import { CreateHedgehogDto } from './dto/create-hedgehog.dto';
 import { UpdateHedgehogDto } from './dto/update-hedgehog.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Controller('hedgehogs')
 export class HedgehogsController {
@@ -13,8 +14,8 @@ export class HedgehogsController {
   }
 
   @Get()
-  findAll() {
-    return this.hedgehogsService.findAll();
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.hedgehogsService.findAll(paginationQuery);
   }
 
   @Get(':id')
