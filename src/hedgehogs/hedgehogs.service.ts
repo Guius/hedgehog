@@ -10,6 +10,7 @@ import { Hedgehog } from './entities/hedgehog.entity';
 export class HedgehogsService {
   constructor(@InjectRepository(Hedgehog) private readonly hedgehogRepository: Repository<Hedgehog>) {}
   create(createHedgehogDto: CreateHedgehogDto) {
+    // TODO: make all fields optional
     try {
       const newHedgehog = this.hedgehogRepository.create(createHedgehogDto);
       return this.hedgehogRepository.save(newHedgehog);

@@ -8,15 +8,15 @@ export class Hedgehog {
   @CreateDateColumn()
   creation_date: Date;
 
-  @Column()
+  @Column({ nullable: true })
   good: string;
 
-  @Column()
+  @Column({ nullable: true })
   bad: string;
 
-  @Column()
+  @Column({ nullable: true })
   improvements: string;
 
-  @Column()
+  @Column({ nullable: true })
   chosen_improvement: string;
 }
